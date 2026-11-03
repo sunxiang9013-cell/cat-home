@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ee">
+  <title>猫窝 · 好好照顾每一天</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></symbol>
+    <symbol id="i-temp" viewBox="0 0 24 24"><path d="M9 14V5a3 3 0 0 1 6 0v9a5 5 0 1 1-6 0Z"/><path d="M12 8v9"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3S5 11 5 15a7 7 0 0 0 14 0c0-4-7-12-7-12Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 17c0-3-4-3-4-8a7 7 0 0 1 14 0c0 5-4 5-4 8Zm0 3h6M12 5v3"/></symbol>
+    <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18l-2 8H5l-2-8Zm-1 8h20M7 7l1-3m4 3V3m5 4-1-3"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="16" cy="17" r="3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </defs></svg>
+  <div class="shell">
+    <main id="home">
+      <header class="topbar"><a class="brand" href="#home" aria-label="猫窝首页"><span class="brand-mark">m<span>·</span></span><span>我的猫窝<small>让照顾，时刻在身边</small></span></a><div class="top-actions"><button id="wifi-open" class="wifi-entry" type="button" aria-label="打开 Wi-Fi 设置">Wi-Fi</button><button class="icon-button" id="settings-open" aria-label="打开下料时间设置"><svg class="icon"><use href="#i-settings"/></svg></button></div></header>
+      <section class="welcome"><div><div class="eyebrow">HOME, SWEET HOME</div><h1>猫咪的小日常<span>。</span></h1><p>看见它的安心，照顾它的每一餐。</p></div><div class="date-display"><span id="today"></span><span>愿今天也有好好吃饭，好好睡觉</span></div></section>
+      <div class="demo-notice"><span class="notice-dot"></span><p>实时查看猫窝画面、温湿度，轻松控制下料与灯光。</p></div>
+      <div class="overview-grid">
+        <section class="camera-card card" aria-labelledby="camera-title">
+          <div class="section-heading"><h2 id="camera-title"><svg class="icon"><use href="#i-camera"/></svg>看看小家伙</h2><button class="camera-settings" id="camera-settings" type="button">重新发现</button></div>
+          <div class="camera-selector" role="group" aria-label="选择摄像头"><button id="camera-select-1" type="button" aria-pressed="true">一号摄像头</button><button id="camera-select-2" type="button" aria-pressed="false">二号摄像头</button></div>
+          <p class="camera-switch-hint">只播放选中的一路画面</p>
+          <div class="camera-scene" id="camera-scene">
+            <div class="camera-overlay"><span class="camera-label"><i></i><span id="camera-mode">连接中</span></span><span class="camera-corner" id="camera-number">CAT HOME / 01</span></div>
+            <img id="camera-image" alt="ESP32 摄像头实际画面" hidden>
+            <div class="camera-empty" id="camera-empty"><svg class="icon"><use href="#i-camera"/></svg><strong id="camera-message">正在连接摄像头…</strong><span id="camera-help">请保持设备供电并连接同一网络</span></div>
+            <div class="camera-bottom"><div><span class="scene-title">看看小家伙</span><span class="scene-caption" id="frame-time">尚未收到画面</span></div><button class="camera-expand" id="camera-expand" aria-label="放大摄像头画面"><svg class="icon"><use href="#i-expand"/></svg></button></div>
+          </div>
+          <div class="camera-footer"><span id="camera-connection" role="status">正在连接摄像头</span><span id="camera-resolution">设备画面</span></div>
+          <div class="camera-actions"><button id="camera-toggle" type="button">暂停画面</button><button id="camera-save" type="button">拍照保存</button></div>
+        </section>
+        <section class="environment" aria-label="猫窝温湿度">
+          <div class="environment-intro"><span class="eyebrow">COZY CORNER</span><h2>刚刚好的小环境</h2><p>温度与湿度，一眼就知道。</p></div>
+          <article class="metric-card temperature card"><div class="metric-head"><span><svg class="icon"><use href="#i-temp"/></svg>窝内温度</span><span class="sample-tag" id="temperature-tag">连接中</span></div><div class="metric-value"><b id="temperature-value" style="font-weight:inherit">—</b><span>°C</span></div><div class="metric-bottom"><span id="temperature-status" role="status">正在读取传感器</span></div></article>
+          <article class="metric-card humidity card"><div class="metric-head"><span><svg class="icon"><use href="#i-drop"/></svg>窝内湿度</span><span class="sample-tag" id="humidity-tag">连接中</span></div><div class="metric-value"><b id="humidity-value" style="font-weight:inherit">—</b><span>%</span></div><div class="metric-bottom"><span id="humidity-status" role="status">正在读取传感器</span></div></article>
+        </section>
+      </div>
+      <section id="feeding" class="feeding-section" aria-labelledby="feeding-title"><div class="block-heading"><div><h2 id="feeding-title">好好吃饭<span class="section-subtitle">三路独立下料</span></h2><p>选一个粮仓，轻点一下，添一份满足。</p></div><button class="stop-button" id="stop-feeding" disabled><svg class="icon"><use href="#i-stop"/></svg>停止下料</button></div>
+        <div class="feed-grid" id="feed-grid"></div>
+        <div class="feeding-note"><svg class="icon"><use href="#i-clock"/></svg><span>点击会启动真实电机。约5圈按时间估算，出粮量需校准；设备到时自动停止。</span></div>
+      </section>
+      <div class="bottom-grid">
+        <section id="lighting" class="lighting-card card" aria-labelledby="lighting-title"><div class="section-heading"><h2 id="lighting-title">留一盏温柔的灯</h2><span class="subtle-label">两路独立控制</span></div><div class="light-row"><div class="light-icon" id="light-icon-1"><svg class="icon"><use href="#i-light"/></svg></div><div class="light-copy"><h3>窝内灯带 <span>01</span></h3><p id="light-status-1">正在连接设备</p></div><button class="switch" id="light-1" disabled role="switch" aria-describedby="light-status-1" aria-checked="false" aria-label="窝内灯带"><span></span></button></div><div class="light-row"><div class="light-icon" id="light-icon-2"><svg class="icon"><use href="#i-light"/></svg></div><div class="light-copy"><h3>氛围灯带 <span>02</span></h3><p id="light-status-2">正在连接设备</p></div><button class="switch" id="light-2" disabled role="switch" aria-describedby="light-status-2" aria-checked="false" aria-label="氛围灯带"><span></span></button></div></section>
+        <section class="activity-card card" aria-labelledby="activity-title"><div class="section-heading"><h2 id="activity-title">小窝动态</h2><span class="subtle-label">本次预览</span></div><ol id="activity-list"><li class="empty-activity"><span class="activity-dot"></span><div><strong>猫窝控制台已就绪</strong><p>试试下料按钮，或点亮一盏灯。</p></div><time>刚刚</time></li></ol></section>
+      </div>
+      <footer class="page-footer"><span>猫窝 CAT HOME <span>·</span> 每一份照顾，都有回应。</span><span>画面与温湿度来自猫窝设备</span></footer>
+    </main>
+    <nav class="bottom-nav" aria-label="主要导航">
+      <a class="nav-item active" href="#home" aria-current="location"><svg class="icon"><use href="#i-camera"/></svg><span>看猫咪</span></a>
+      <a class="nav-item" href="#feeding"><svg class="icon"><use href="#i-bowl"/></svg><span>喂食</span></a>
+      <a class="nav-item" href="#lighting"><svg class="icon"><use href="#i-light"/></svg><span>灯光</span></a>
+    </nav>
+  </div>
+  <aside class="network-recovery-panel"><p id="network-recovery" role="status" hidden></p><button id="network-retry" type="button">重新连接猫窝</button></aside>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form"><div class="dialog-heading"><div><span class="eyebrow">FEEDING SETTINGS</span><h2 id="settings-title">下料时间设置</h2></div><button type="button" class="icon-button" id="settings-close" aria-label="关闭设置"><svg class="icon"><use href="#i-close"/></svg></button></div><p class="dialog-description">每次下料固定估算 5 圈。分别设置每个舵机转一圈所需的时间；请按实际转速测量校准。</p><div id="calibration-fields"></div><p class="settings-note">默认 1.2 秒/圈尚未校准，当前每次运行6秒。设置会用于真实下料，每次最多30秒。</p><p class="form-error" id="settings-error" role="alert"></p><button type="submit" class="save-button">保存设置</button></form></dialog>
+  <dialog id="wifi-dialog" aria-labelledby="wifi-title"><form id="wifi-form" autocomplete="off"><div class="dialog-heading"><div><span class="eyebrow">STAY CONNECTED</span><h2 id="wifi-title">Wi-Fi 设置</h2></div><button type="button" class="icon-button" id="wifi-close" aria-label="关闭 Wi-Fi 设置"><svg class="icon"><use href="#i-close"/></svg></button></div><p class="dialog-description">为猫窝选择新的网络，请使用 2.4GHz Wi-Fi。</p><fieldset id="wifi-fields"><legend>两台设备一起连接</legend><p class="settings-note">主控与二号摄像头统一使用同一个 Wi-Fi，联网后自动更新设备地址。</p><div class="wifi-devices"><p><strong>一号主控</strong><span id="wifi-device-1">正在读取状态</span></p><p><strong>二号摄像头</strong><span id="wifi-device-2">正在读取状态</span></p></div><div class="wifi-ssid-heading"><label class="wifi-field" for="wifi-ssid">Wi-Fi 名称</label><button id="wifi-scan" type="button">搜索 Wi-Fi</button></div><div class="wifi-field wifi-ssid-input"><input id="wifi-ssid" type="text" required maxlength="32" autocomplete="off" spellcheck="false" placeholder="搜索选择或手动输入名称"></div><p id="wifi-scan-status" role="status" aria-live="polite"></p><div id="wifi-networks" aria-label="附近的 Wi-Fi"></div><label class="wifi-field" for="wifi-password">Wi-Fi 密码</label><div class="wifi-password-row"><input id="wifi-password" type="password" required minlength="8" maxlength="63" autocomplete="new-password" placeholder="输入网络密码"><button id="wifi-show-password" type="button" aria-pressed="false">显示</button></div><label class="wifi-open-network"><input id="wifi-open-network" type="checkbox">这是无密码网络</label></fieldset><p class="settings-note">切换时画面会暂时中断。连接失败会尝试恢复原网络。更换成功后，手机也需连接同一 Wi-Fi；设备地址由系统自动发现。</p><p id="wifi-result" class="wifi-result" role="status" aria-live="polite"></p><div id="wifi-reconnect" hidden class="wifi-reconnect">手机连接新网络后，可尝试打开 <a href="http://cat-home.local/">猫窝控制页</a>。页面会自动寻找主控，并重新发现二号摄像头。</div><button id="wifi-submit" class="save-button" type="submit">两台一起连接</button></form></dialog>
+</body>
+</html>
+
