@@ -4,7 +4,7 @@
 
 - [猫窝控制程序与使用说明](猫窝/README.md)：主控板、副板、手机 Web 界面、测试及说明文档。
 - [猫窝模型](猫窝.3dm)：Rhino 三维模型。
-- 照片压缩包：在本仓库 **Releases** 的 `backup-20261103` 版本下载 `cat-home-photos.zip`，下载后可改回原名 `猫窝照片.zip`。
+- [下载完整照片压缩包](https://github.com/sunxiang9013-cell/cat-home/releases/download/backup-20261103/cat-home-photos.zip)：下载后可改回原名 `猫窝照片.zip`，原始内容保持不变。
 
 原文件共 48 个：47 个保留原目录结构放入仓库，1 个约 288 MB 的照片压缩包放在 Release 附件中。源码、固件和模型保持原样，照片压缩包保持原始内容。
 
